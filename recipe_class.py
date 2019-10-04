@@ -28,3 +28,14 @@ class Recipe(Connectdb):
     def destroy_one(self, name):
         self.filter_query(f"DELETE FROM Recipes WHERE Recipe_Name = '{name}'")
         self.conn_db.commit()
+
+    def read_postcode(self, name):
+        query = self.filter_query(f"SELECT Postcode FROM Recipes WHERE Recipe_Name = '{name}'").fetchone()[0]
+        return query
+
+    def get_post_code(self, name):
+        got_postcode = self.read_postcode(name)
+        request_postcode = requests.get(f"http://api.postcodes.io/postcodes/{got_postcode}".lower().strip())
+        converted_postcode = request_postcode.json()
+        postcode = converted_postcode['result']['postcode']
+        return postcode

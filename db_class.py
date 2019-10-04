@@ -1,4 +1,5 @@
 import pyodbc
+import requests
 
 # Define a class to access our db
 
