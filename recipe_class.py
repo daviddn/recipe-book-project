@@ -3,17 +3,15 @@ from db_class import *
 # Define a class recipe
 class Recipe(Connectdb):
 
-    # Define methods
+# Define methods
 
-    # read() (have this on db_class)
-    # - read one object
+    # Shows one recipe in the recipe table
     def read_one(self, name):
         query = self.filter_query(f"SELECT * FROM Recipes WHERE Recipe_Name = '{name}'").fetchone()
         return query
 
-    # all() (have this on db_class)
+    # Shows all recipes in the recipe table
     def read_all(self):
-    # - gets all the instances from DB
         query = self.filter_query(f"SELECT * FROM Recipes")
         while True:
             record = query.fetchone()
@@ -21,11 +19,12 @@ class Recipe(Connectdb):
                 break
             print('Recipe: ' + record[0], 'Ingredients: ' + record[1], 'Instructions: ' + record[2], 'Postcode: ' + record[3])
 
-    # new()
+    # Creates new recipe in the recipe table
     def new(self, recipe_name, ingredients, instructions, postcode):
-        self.cursor.execute(f"INSERT INTO Recipes (Recipe_Name, Ingredients, Instructions, Postcode) VALUES {recipe_name, ingredients, instructions, postcode}")
+        self.filter_query(f"INSERT INTO Recipes (Recipe_Name, Ingredients, Instructions, Postcode) VALUES {recipe_name, ingredients, instructions, postcode}")
         self.conn_db.commit()
 
-        # destroy() - one object
-    def destroy(self):
-        pass
+    # Deletes one recipe from the recipe table
+    def destroy_one(self, name):
+        self.filter_query(f"DELETE FROM Recipes WHERE Recipe_Name = '{name}'")
+        self.conn_db.commit()
