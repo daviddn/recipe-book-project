@@ -46,3 +46,12 @@ class Recipe(Connectdb):
         converted_postcode = request_postcode.json()
         postcode = converted_postcode['result']['postcode']
         return postcode
+
+    # Write postcode to file
+    def write_to_file(self, file, name):
+        try:
+            with open(file, 'a') as opened_file:
+                opened_file.write(f"{self.read_one(name)}\n")
+
+        except FileNotFoundError:
+            print('File not found')
