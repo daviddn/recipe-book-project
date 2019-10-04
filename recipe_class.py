@@ -39,15 +39,15 @@ class Recipe(Connectdb):
         query = self.filter_query(f"SELECT Postcode FROM Recipes WHERE Recipe_Name = '{name}'").fetchone()[0]
         return query
 
-    # Returns postcode from looking up postcode returned from table on postcodes.io api
-    def get_post_code(self, name):
+    # Returns postcode info from looking up postcode returned from table on postcodes.io api
+    def get_postcode_info(self, name):
         got_postcode = self.read_postcode(name)
         request_postcode = requests.get(f"http://api.postcodes.io/postcodes/{got_postcode}".lower().strip())
         converted_postcode = request_postcode.json()
-        postcode = converted_postcode['result']['postcode']
+        postcode = converted_postcode['result']
         return postcode
 
-    # Write postcode to file
+    # Write recipe to file
     def write_to_file(self, file, name):
         try:
             with open(file, 'a') as opened_file:

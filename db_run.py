@@ -11,8 +11,8 @@ db_recipes = Recipe()
 
 # print(db_recipes.read_one('Chocolate Cake'))
 
-# db_recipes.get_post_code('Grilled Chicken')
+# db_recipes.get_postcode_info('Grilled Chicken')
 
 # db_recipes.update_one('postcode', 'E1 3FD', 'Grilled Chicken')
 
-db_recipes.write_to_file('recipe.txt', 'Grilled Chicken')
+# db_recipes.write_to_file('recipe.txt', 'Grilled Chicken')
